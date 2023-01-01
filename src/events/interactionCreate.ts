@@ -55,7 +55,6 @@ export default new ClientEvent("interactionCreate", async function interactionCr
 
         case InteractionTypes.MESSAGE_COMPONENT: {
             assert(is<GuildComponentInteraction>(interaction));
-            console.log(interaction.data);
             const user = interaction.data.customID.split(".").slice(-1)[0];
             if (user !== interaction.user.id) {
                 return interaction.createMessage({
