@@ -1,0 +1,330 @@
+{
+  "247488777621209091": {
+    "logsChannel": "609503408386474074",
+    "disallowDuplicateRegistration": true,
+    "successfulRegistrationRole": "1059221621975560312",
+    "questions": [
+      {
+        "name": "age",
+        "question": "What is your age? Lying here could result in a permanent ban.",
+        "condition": null,
+        "choiceType": "select",
+        "multiselect": false,
+        "choices": [
+          {
+            "name": "13",
+            "roles": [
+              // under 18
+              "584956950282895360",
+              // id check
+              "1058973643985649745"
+            ]
+          },
+          {
+            "name": "14",
+            "roles": [
+              // under 18
+              "584956950282895360",
+              // id check
+              "1058973643985649745"
+            ]
+          },
+          {
+            "name": "15",
+            "roles": [
+              // under 18
+              "584956950282895360",
+              // mature
+              "589763769740165121"
+            ]
+          },
+          {
+            "name": "16",
+            "roles": [
+              // under 18
+              "584956950282895360",
+              // mature
+              "589763769740165121"
+            ]
+          },
+          {
+            "name": "17",
+            "roles": [
+              // under 18
+              "584956950282895360",
+              // mature
+              "589763769740165121"
+            ]
+          },
+          {
+            "name": "18+",
+            "roles": [
+              // 18+
+              "584965037731348490",
+              // mature
+              "589763769740165121"
+            ]
+          },
+          {
+            "name": "Decline To Answer",
+            "roles": [
+              // decline to answer
+              "1058984618499514438",
+              // id check
+              "1058973643985649745"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "nsfw",
+        "question": "Would you like access to nsfw channels?",
+        "condition": {
+          // 18+
+          "age": "584965037731348490"
+        },
+        "choiceType": "button",
+        "choices": [
+          {
+            "name": "Yes",
+            // green
+            "style": 3,
+            "roles": [
+              // nsfw
+              "584956884230995968"
+            ]
+          },
+          {
+            "name": "No",
+            // red
+            "style": 4,
+            "roles": []
+          }
+        ]
+      },
+      {
+        "name": "gender",
+        "question": "What is your gender?",
+        "condition": null,
+        "choiceType": "select",
+        "multiselect": false,
+        "choices": [
+          {
+            "name": "Male",
+            "roles": [
+              // male
+              "675942135530258442"
+            ]
+          },
+          {
+            "name": "Female",
+            "roles": [
+              // female
+              "675942151456292894"
+            ]
+          },
+          {
+            "name": "Non-Binary/Other",
+            "roles": [
+              // non-binary/other
+              "675942171467186186"
+            ]
+          },
+          {
+            "name": "Decline To Answer",
+            "roles": []
+          }
+        ]
+      },
+      {
+        "name": "femboy",
+        "question": "Would you like the femboy role? It's pretty pink.",
+        "condition": {
+          // male
+          "gender": "675942135530258442",
+          // mature
+          "age": "589763769740165121"
+        },
+        "choiceType": "button",
+        "choices": [
+          {
+            "name": "Yes",
+            // green
+            "style": 3,
+            "roles": [
+              // femboy
+              "682259057616355455"
+            ]
+          },
+          {
+            "name": "No",
+            // red
+            "style": 4,
+            "roles": []
+          }
+        ]
+      },
+      {
+        "name": "dms",
+        "question": "Can anyone Direct Message you?",
+        "condition": null,
+        "choiceType": "button",
+        "choices": [
+          {
+            "name": "Yes",
+            // green
+            "style": 3,
+            "roles": [
+              // open dms
+              "584965086767218699"
+            ]
+          },
+          {
+            "name": "No",
+            // red
+            "style": 4,
+            "roles": [
+              // closed dms
+              "584965130547232801"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "species",
+        "question": "What is your species?",
+        "condition": null,
+        "choiceType": "select",
+        "multiselect": 3,
+        "choices": [
+          {
+            "name": "Canine",
+            "roles": [
+              // canine
+              "675943047552434186"
+            ]
+          },
+          {
+            "name": "Fox",
+            "roles": [
+              // fox
+              "675943059770310657"
+            ]
+          },
+          {
+            "name": "Wolf",
+            "roles": [
+              // wolf
+              "675943071485132830"
+            ]
+          },
+          {
+            "name": "Feline",
+            "roles": [
+              // feline
+              "675943082838982666"
+            ]
+          },
+          {
+            "name": "Otter",
+            "roles": [
+              // otter
+              "675943106637594644"
+            ]
+          },
+          {
+            "name": "Seal",
+            "roles": [
+              // seal
+              "675944692558331906"
+            ]
+          },
+          {
+            "name": "Reptile",
+            "roles": [
+              // reptile
+              "675944707800563752"
+            ]
+          },
+          {
+            "name": "Fish",
+            "roles": [
+              // fish
+              "675944739211837441"
+            ]
+          },
+          {
+            "name": "Whale",
+            "roles": [
+              // whale
+              "675944755460309016"
+            ]
+          },
+          {
+            "name": "Dolphin",
+            "roles": [
+              // dolphin
+              "675944766835392523"
+            ]
+          },
+          {
+            "name": "Sergal",
+            "roles": [
+              // sergal
+              "676919625707028501"
+            ]
+          },
+          {
+            "name": "Bear",
+            "roles": [
+              // bear
+              "676919894494806053"
+            ]
+          },
+          {
+            "name": "Dragon",
+            "roles": [
+              // dragon
+              "690143664244260871"
+            ]
+          },
+          {
+            "name": "Hybrid",
+            "roles": [
+              // hybrid
+              "676301776848420864"
+            ]
+          },
+          {
+            "name": "Other",
+            "roles": [
+              // other
+              "675944783511945246"
+            ]
+          },
+          {
+            "name": "Human",
+            "roles": [
+              // human
+              "679031692387811378"
+            ]
+          },
+          {
+            "name": "Hyena",
+            "roles": [
+              // hyena
+              "748248162573090957"
+            ]
+          },
+          {
+            "name": "Goat",
+            "roles": [
+              // goat
+              "900114945960734780"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

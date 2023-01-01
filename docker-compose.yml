@@ -1,0 +1,24 @@
+services:
+  maidboye:
+    image: ghcr.io/donovandmc/security-bot
+    container_name: security-bot
+    volumes:
+      - ./data/bot:/data
+    restart: always
+    hostname: security.bots.containers.local
+    networks:
+      default:
+        ipv4_address: 172.19.3.18
+
+networks:
+  default:
+    name: security
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.3.16/30
+          gateway: 172.19.3.17
+  websites:
+    name: websites
+    external: true

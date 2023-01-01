@@ -1,0 +1,6 @@
+[submodule "Private Config"]
+	path = src/config/private
+	url = https://github.com/DonovanDMC/SecurityConfig
+[submodule "src/config/private"]
+	path = src/config/private
+	url = https://github.com/DonovanDMC/SecurityConfig

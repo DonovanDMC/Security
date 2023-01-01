@@ -1,0 +1,4 @@
+node_modules/
+data/
+test/
+src/config/private
