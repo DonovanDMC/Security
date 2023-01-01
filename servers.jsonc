@@ -562,8 +562,8 @@
         ]
       },
       {
-        "name": "irl",
-        "question": "Would you like access to IRL content?",
+        "name": "roleplay",
+        "question": "Would you like access to the roleplay channels?",
         "condition": {
           // registered
           "age": "1059242490911268864"
@@ -575,8 +575,8 @@
             // green
             "style": 3,
             "roles": [
-              // irl access
-              "1059247902163222539"
+              // roleplay access
+              "1059250677047644190"
             ]
           },
           {
