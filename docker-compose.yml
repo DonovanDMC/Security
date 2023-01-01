@@ -1,5 +1,5 @@
 services:
-  maidboye:
+  security:
     image: ghcr.io/donovandmc/security-bot
     container_name: security-bot
     volumes:
