@@ -10,6 +10,7 @@ export default class QuestionHandler {
     static path = `${Config.baseDir}/servers.jsonc`;
     // map of guild id to map of hash to question name & question name to hash
     static questionMap: Array<HashedQuestion> = [];
+    // restart to load new config
     static async load() {
         const settings = await parse(await readFile(this.path, "utf8")) as Root;
         for (const [guild, serverConfig] of Object.entries(settings)) {
