@@ -4,4 +4,4 @@ WORKDIR /app
 COPY . .
 RUN npm install --development --force
 RUN npm run build
-CMD ["node", "/app/build/src/index.js"]
+CMD ["node", "/app/dist/src/index.js"]

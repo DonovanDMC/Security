@@ -1,7 +1,7 @@
 {
   "name": "security",
   "version": "2.0.0",
-  "buildDate": null,
+  "buildDate": "00022023",
   "description": "Security bot for my servers.",
   "main": "index.js",
   "scripts": {
