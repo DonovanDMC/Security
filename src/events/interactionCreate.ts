@@ -108,8 +108,9 @@ export default new ClientEvent("interactionCreate", async function interactionCr
                         await interaction.member.addRole(serverConfig.successfulRegistrationRole, "Registration");
                     }
                     return interaction.editParent({
-                        content: "Your registration has been completed.",
-                        flags:   MessageFlags.EPHEMERAL
+                        content:    "Your registration has been completed.",
+                        flags:      MessageFlags.EPHEMERAL,
+                        components: []
                     });
                 } else {
                     return interaction.editParent(buildQuestion(interaction, next));
@@ -117,8 +118,9 @@ export default new ClientEvent("interactionCreate", async function interactionCr
             } catch (err) {
                 Logger.getLogger("RegistrationError").error("User:", interaction.user.id, "Guild:", interaction.guildID, "Custom ID:", interaction.data.customID, err);
                 return interaction.editParent({
-                    content: "An internal error occured.",
-                    flags:   MessageFlags.EPHEMERAL
+                    content:    "An internal error occured.",
+                    flags:      MessageFlags.EPHEMERAL,
+                    components: []
                 });
             }
         }
