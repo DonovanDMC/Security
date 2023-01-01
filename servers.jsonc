@@ -562,6 +562,32 @@
         ]
       },
       {
+        "name": "irl",
+        "question": "Would you like access to IRL content?",
+        "condition": {
+          // registered
+          "age": "1059242490911268864"
+        },
+        "choiceType": "button",
+        "choices": [
+          {
+            "name": "Yes",
+            // green
+            "style": 3,
+            "roles": [
+              // irl access
+              "1059247902163222539"
+            ]
+          },
+          {
+            "name": "No",
+            // red
+            "style": 4,
+            "roles": []
+          }
+        ]
+      },
+      {
         "name": "roleplay",
         "question": "Would you like access to the roleplay channels?",
         "condition": {
