@@ -326,5 +326,267 @@
         ]
       }
     ]
+  },
+  "990091579341553674": {
+    "logsChannel": "1059241444151394324",
+    "disallowDuplicateRegistration": true,
+    "successfulRegistrationRole": "1059242490911268864",
+    "questions": [
+      {
+        "name": "age",
+        "question": "What is your age? Lying here could result in a permanent ban.",
+        "condition": null,
+        "choiceType": "select",
+        "multiselect": false,
+        "choices": [
+          {
+            "name": "13",
+            "roles": []
+          },
+          {
+            "name": "14",
+            "roles": []
+          },
+          {
+            "name": "15",
+            "roles": []
+          },
+          {
+            "name": "16",
+            "roles": []
+          },
+          {
+            "name": "17",
+            "roles": []
+          },
+          {
+            "name": "18+",
+            "roles": [
+              // registered
+              "1059242490911268864"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "gender",
+        "question": "What is your gender?",
+        "condition": {
+          // registered
+          "age": "1059242490911268864"
+        },
+        "choiceType": "select",
+        "multiselect": false,
+        "choices": [
+          {
+            "name": "Male",
+            "roles": [
+              // male
+              "1004815400472678532"
+            ]
+          },
+          {
+            "name": "Female",
+            "roles": [
+              // female
+              "1004815516243861634"
+            ]
+          },
+          {
+            "name": "Non-Binary/Other",
+            "roles": [
+              // non-binary/other
+              "1004815652663603230"
+            ]
+          },
+          {
+            "name": "Decline To Answer",
+            "roles": []
+          }
+        ]
+      },
+      {
+        "name": "femboy",
+        "question": "Would you like the femboy role? It's pretty pink.",
+        "condition": {
+          // male
+          "gender": "1004815400472678532",
+          // registered
+          "age": "1059242490911268864"
+        },
+        "choiceType": "button",
+        "choices": [
+          {
+            "name": "Yes",
+            // green
+            "style": 3,
+            "roles": [
+              // femboy
+              "990092843286683651"
+            ]
+          },
+          {
+            "name": "No",
+            // red
+            "style": 4,
+            "roles": []
+          }
+        ]
+      },
+      {
+        "name": "sexual-orientation",
+        "question": "What is your sexual orientation?",
+        "condition": {
+          // registered
+          "age": "1059242490911268864"
+        },
+        "multiselect": false,
+        "choiceType": "select",
+        "choices": [
+          {
+            "name": "Gay",
+            "roles": [
+              // gay
+              "1004810596589514853"
+            ]
+          },
+          {
+            "name": "Bisexual",
+            "roles": [
+              // bisexual
+              "1004810675455008808"
+            ]
+          },
+          {
+            "name": "Straight",
+            "roles": [
+              // straight
+              "1004811117878575149"
+            ]
+          },
+          {
+            "name": "Lesbian",
+            "roles": [
+              // lesbian
+              "1004811208110641184"
+            ]
+          },
+          {
+            "name": "Ace",
+            "roles": [
+              // ace
+              "1004812032849231937"
+            ]
+          },
+          {
+            "name": "Trans",
+            "roles": [
+              // trans
+              "1004812286134853662"
+            ]
+          },
+          {
+            "name": "Decline To Answer",
+            "roles": []
+          }
+        ]
+      },
+      {
+        "name": "sexual-position",
+        "question": "What is your sexual position?",
+        "condition": {
+          // registered
+          "age": "1059242490911268864"
+        },
+        "multiselect": false,
+        "choiceType": "select",
+        "choices": [
+          {
+            "name": "Submissive",
+            "roles": [
+              // submissive
+              "1004816321088847963"
+            ]
+          },
+          {
+            "name": "Dominant",
+            "roles": [
+              // dominant
+              "1004810675455008808"
+            ]
+          },
+          {
+            "name": "Switch",
+            "roles": [
+              // switch
+              "1004816349677244497"
+            ]
+          },
+          {
+            "name": "Non-Sexual",
+            "roles": [
+              // non-sexual
+              "1004819018441568367"
+            ]
+          },
+          {
+            "name": "Decline To Answer",
+            "roles": []
+          }
+        ]
+      },
+      {
+        "name": "horny",
+        "question": "Are you horny 24/7?",
+        "condition": {
+          // registered
+          "age": "1059242490911268864"
+        },
+        "choiceType": "button",
+        "choices": [
+          {
+            "name": "Yes",
+            // green
+            "style": 3,
+            "roles": [
+              // holy shit how horny are you
+              "1004814465570701333"
+            ]
+          },
+          {
+            "name": "No",
+            // red
+            "style": 4,
+            "roles": []
+          }
+        ]
+      },
+      {
+        "name": "irl",
+        "question": "Would you like access to IRL content?",
+        "condition": {
+          // registered
+          "age": "1059242490911268864"
+        },
+        "choiceType": "button",
+        "choices": [
+          {
+            "name": "Yes",
+            // green
+            "style": 3,
+            "roles": [
+              // irl access
+              "1059247902163222539"
+            ]
+          },
+          {
+            "name": "No",
+            // red
+            "style": 4,
+            "roles": []
+          }
+        ]
+      }
+    ]
   }
 }
