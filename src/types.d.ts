@@ -31,6 +31,7 @@ interface ServerConfig {
     logsChannel: string;
     disallowDuplicateRegistration: boolean;
     successfulRegistrationRole: string | null;
+    blockedRoles: Array<string>;
     questions: Array<SelectQuestion | ButtonQuestion>;
 }
 

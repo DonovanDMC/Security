@@ -3,6 +3,10 @@
     "logsChannel": "609503408386474074",
     "disallowDuplicateRegistration": true,
     "successfulRegistrationRole": "1059221621975560312",
+    "blockedRoles": [
+      // Registration Blocked
+      "1061048188636770435"
+    ],
     "questions": [
       {
         "name": "age",
@@ -329,8 +333,14 @@
   },
   "990091579341553674": {
     "logsChannel": "1059241444151394324",
-    "disallowDuplicateRegistration": true,
-    "successfulRegistrationRole": "1059242490911268864",
+    "disallowDuplicateRegistration": false,
+    "successfulRegistrationRole": null,
+    "blockedRoles": [
+      // Under 18
+      "1061046625721651260",
+      // Registration Blocked
+      "1061046836053422111"
+    ],
     "questions": [
       {
         "name": "age",

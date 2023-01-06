@@ -41,6 +41,10 @@ export default new ClientEvent("interactionCreate", async function interactionCr
                         return interaction.createMessage({ content: "You have already registered. Please contact a staff member to change your roles.", flags: MessageFlags.EPHEMERAL });
                     }
 
+                    if (interaction.member.roles.some(role => serverConfig.blockedRoles.includes(role))) {
+                        return interaction.createMessage({ content: "You are not allowed to register.", flags: MessageFlags.EPHEMERAL });
+                    }
+
                     const start = serverConfig.questions[0];
                     ActiveRegistrationHandler.start(interaction.guildID, interaction.user.id, interaction.token);
                     return interaction.createMessage(buildQuestion(interaction, start));
