@@ -598,6 +598,32 @@
         ]
       },
       {
+        "name": "fetish",
+        "question": "Would you like access to Fetish content?",
+        "condition": {
+          // registered
+          "age": "1059242490911268864"
+        },
+        "choiceType": "button",
+        "choices": [
+          {
+            "name": "Yes",
+            // green
+            "style": 3,
+            "roles": [
+              // fetish content
+              "1077320647530782860"
+            ]
+          },
+          {
+            "name": "No",
+            // red
+            "style": 4,
+            "roles": []
+          }
+        ]
+      },
+      {
         "name": "roleplay",
         "question": "Would you like access to the roleplay channels?",
         "condition": {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import LocalConfiguration from "./private/private.js";
 import { EnvOverride } from "@uwu-codes/utils";
 import { ActivityTypes, type ClientOptions } from "oceanic.js";
@@ -45,7 +46,7 @@ class Configuration extends LocalConfiguration {
             gateway:                   {
                 autoReconnect: true,
                 concurrency:   "auto",
-                intents:       [],
+                intents:       ["GUILDS", "GUILD_MEMBERS"],
                 maxShards:     "auto",
                 presence:      {
                     activities: [{
@@ -53,7 +54,8 @@ class Configuration extends LocalConfiguration {
                         name: "over all you fluffers."
                     }],
                     status: "dnd"
-                }
+                },
+                getAllUsers: true
             }
         } satisfies ClientOptions as ClientOptions;
     }
