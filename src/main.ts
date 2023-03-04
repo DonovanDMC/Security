@@ -14,14 +14,40 @@ import {
 
 export default class Security extends Client {
     static INSTANCE: Security;
-    firstReady = false;
-    readyTime: bigint;
-    initTime: bigint;
     events = new Map<string, ClientEvent>();
+    firstReady = false;
+    initTime: bigint;
+    readyTime: bigint;
     constructor(initTime: bigint) {
         super(Config.clientOptions);
         Security.INSTANCE = this;
         this.initTime = initTime;
+    }
+
+    async dirCheck() {
+        const directories = [
+            Config.logsDirectory,
+            Config.dataDir,
+            Config.eventsDirectory
+        ];
+        for (const dir of directories) {
+            await mkdir(dir, { recursive: true });
+        }
+    }
+
+    async getUser(id: string, forceRest = false) {
+        const current = this.users.get(id);
+        if (current && !forceRest) {
+            return current;
+        }
+        return this.rest.users.get(id).catch(() => null);
+    }
+
+    async handleRegistrationError(commands: Array<CreateApplicationCommandOptions>, err: Error) {
+        Logger.getLogger("CommandRegistration").error("Failed To Register Commands:", err);
+        for (const cmd of commands) {
+            Logger.getLogger("CommandRegistration").error(`Command At ${commands.indexOf(cmd)}: ${cmd.name} (${ApplicationCommandTypes[cmd.type]})`);
+        }
     }
 
     async launch() {
@@ -54,24 +80,6 @@ export default class Security extends Client {
         Logger.getLogger("EventManager").debug(`Loaded ${events.length} ${Strings.plural("event", events)} in ${Timer.calc(overallStart, overallEnd, 3, false)}`);
     }
 
-    async dirCheck() {
-        const directories = [
-            Config.logsDirectory,
-            Config.dataDir,
-            Config.eventsDirectory
-        ];
-        for (const dir of directories) {
-            await mkdir(dir, { recursive: true });
-        }
-    }
-
-    async handleRegistrationError(commands: Array<CreateApplicationCommandOptions>, err: Error) {
-        Logger.getLogger("CommandRegistration").error("Failed To Register Commands:", err);
-        for (const cmd of commands) {
-            Logger.getLogger("CommandRegistration").error(`Command At ${commands.indexOf(cmd)}: ${cmd.name} (${ApplicationCommandTypes[cmd.type]})`);
-        }
-    }
-
     async registerCommands() {
         const commands: Array<CreateApplicationCommandOptions> = [
             {
@@ -92,11 +100,7 @@ export default class Security extends Client {
         Logger.getLogger("CommandRegistration").info(`Registered ${commands.length} commands in ${Timer.calc(regStart, regEnd, 3, false)}`);
     }
 
-    async getUser(id: string, forceRest = false) {
-        const current = this.users.get(id);
-        if (current && !forceRest) {
-            return current;
-        }
-        return this.rest.users.get(id).catch(() => null);
+    shutdown() {
+        this.disconnect(false);
     }
 }

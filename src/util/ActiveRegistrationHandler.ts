@@ -4,11 +4,11 @@ import { MessageFlags } from "oceanic.js";
 
 interface ActiveRegistration {
     guild: string;
-    user: string;
+    interactionToken: string; // for sending a timeout notification
+    lastAnsweredAt: Date;
     roles: Record<string, Array<string>>;
     stringAnswers: Record<string, Array<string>>;
-    lastAnsweredAt: Date;
-    interactionToken: string; // for sending a timeout notification
+    user: string;
 }
 export default class ActiveRegistrationHandler {
     private static client: Security;
@@ -50,47 +50,6 @@ export default class ActiveRegistrationHandler {
         }
     }
 
-    static init(client: Security) {
-        this.client = client;
-        setInterval(this.handleTimeout.bind(this), 1000);
-    }
-
-    static start(guild: string, user: string, token: string) {
-        this.active.push({
-            guild,
-            user,
-            roles:            {},
-            stringAnswers:    {},
-            lastAnsweredAt:   new Date(),
-            interactionToken: token
-        });
-    }
-
-    static isActive(guild: string, user: string) {
-        return this.active.some(reg => reg.guild === guild && reg.user === user);
-    }
-
-    static saveChoices(guild: string, user: string, question: string, choices: Array<string>, stringValues: Array<string>, token: string) {
-        let rg: ActiveRegistration | undefined;
-        const reg = rg = this.active.find(r => r.guild === guild && r.user === user);
-        if (reg === undefined || rg === undefined) {
-            return;
-        }
-        reg.roles[question] = choices;
-        reg.stringAnswers[question] = stringValues;
-        reg.lastAnsweredAt = new Date();
-        reg.interactionToken = token;
-        this.active.splice(this.active.indexOf(rg), 1, reg);
-    }
-
-    static getPreviousRoles(guild: string, user: string) {
-        const reg = this.active.find(r => r.guild === guild && r.user === user);
-        if (reg === undefined) {
-            return {};
-        }
-        return reg.roles;
-    }
-
     static async end(guild: string, user: string) {
         const reg = this.active.find(r => r.guild === guild && r.user === user);
         if (reg === undefined) {
@@ -121,5 +80,46 @@ export default class ActiveRegistrationHandler {
             ]
         });
         return Object.values(reg.roles).flat();
+    }
+
+    static getPreviousRoles(guild: string, user: string) {
+        const reg = this.active.find(r => r.guild === guild && r.user === user);
+        if (reg === undefined) {
+            return {};
+        }
+        return reg.roles;
+    }
+
+    static init(client: Security) {
+        this.client = client;
+        setInterval(this.handleTimeout.bind(this), 1000);
+    }
+
+    static isActive(guild: string, user: string) {
+        return this.active.some(reg => reg.guild === guild && reg.user === user);
+    }
+
+    static saveChoices(guild: string, user: string, question: string, choices: Array<string>, stringValues: Array<string>, token: string) {
+        let rg: ActiveRegistration | undefined;
+        const reg = rg = this.active.find(r => r.guild === guild && r.user === user);
+        if (reg === undefined || rg === undefined) {
+            return;
+        }
+        reg.roles[question] = choices;
+        reg.stringAnswers[question] = stringValues;
+        reg.lastAnsweredAt = new Date();
+        reg.interactionToken = token;
+        this.active.splice(this.active.indexOf(rg), 1, reg);
+    }
+
+    static start(guild: string, user: string, token: string) {
+        this.active.push({
+            guild,
+            user,
+            roles:            {},
+            stringAnswers:    {},
+            lastAnsweredAt:   new Date(),
+            interactionToken: token
+        });
     }
 }

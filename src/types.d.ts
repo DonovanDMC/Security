@@ -1,9 +1,9 @@
 export interface BaseQuestion {
-    name: string;
-    question: string;
-    condition: Record<string, string> | null;
     choiceType: "select" | "button";
     choices: Array<SelectChoice | ButtonChoice>;
+    condition: Record<string, string> | null;
+    name: string;
+    question: string;
 }
 
 export interface SelectChoice {
@@ -22,22 +22,22 @@ export interface ButtonQuestion extends BaseQuestion {
 
 export interface SelectQuestion extends BaseQuestion {
     choiceType: "select";
-    multiSelect: boolean | number;
     choices: Array<SelectChoice>;
+    multiSelect: boolean | number;
 }
 
 export type Root = Record<string, ServerConfig>;
 interface ServerConfig {
-    logsChannel: string;
-    disallowDuplicateRegistration: boolean;
-    successfulRegistrationRole: string | null;
     blockedRoles: Array<string>;
+    disallowDuplicateRegistration: boolean;
+    logsChannel: string;
     questions: Array<SelectQuestion | ButtonQuestion>;
+    successfulRegistrationRole: string | null;
 }
 
 export interface HashedQuestion {
-    guild: string;
-    name: string;
-    hash: string;
     choices: Record<string, string>;
+    guild: string;
+    hash: string;
+    name: string;
 }

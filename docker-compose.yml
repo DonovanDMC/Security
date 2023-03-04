@@ -7,6 +7,16 @@ services:
       - ./servers.jsonc:/app/servers.jsonc
     restart: always
     hostname: security.bots.containers.local
+    healthcheck:
+      interval: 5s
+      timeout: 1s
+      test: wget -q --spider http://localhost:3621
+    deploy:
+        resources:
+          limits:
+            memory: 256M
+          reservations:
+            memory: 128M
     networks:
       default:
         ipv4_address: 172.19.3.18

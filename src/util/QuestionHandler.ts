@@ -10,6 +10,50 @@ export default class QuestionHandler {
     static path = `${Config.baseDir}/servers.jsonc`;
     // map of guild id to map of hash to question name & question name to hash
     static questionMap: Array<HashedQuestion> = [];
+
+    static async get() {
+        return (this.cache ??= await this.load());
+    }
+
+    static getChoiceID(guild: string, name: string, choice: string) {
+        return this.questionMap.find(q => q.guild === guild && q.name === name)!.choices[choice];
+    }
+
+    static getFromID(id: string) {
+        const val = this.hashMap.get(id);
+        return val === undefined ? null : [val.startsWith("Q") ? "question" : "choice", val.slice(1)] as ["question" | "choice", string];
+    }
+
+    static async getNextQuestion(guild: string, name: string, previous: Record<string, Array<string>>): Promise<SelectQuestion | ButtonQuestion | null> {
+        const { questions } = (await this.get())[guild];
+        if (questions === undefined) {
+            return null;
+        }
+        const index = questions.findIndex(q => q.name === name);
+        const next = questions[index + 1];
+        if (next === undefined) {
+            return null;
+        }
+
+        if (await this.shouldShow(guild, next.name, previous)) {
+            return next;
+        }
+
+        return (index + 1) === questions.length ? null : this.getNextQuestion(guild, next.name, previous);
+    }
+
+    static async getQuestion(guild: string, name: string) {
+        return (await this.get())[guild]?.questions.find(q => q.name === name) ?? null;
+    }
+
+    static getQuestionID(guild: string, name: string) {
+        return this.questionMap.find(q => q.guild === guild && q.name === name)!.hash;
+    }
+
+    static async getServerConfig(guild: string) {
+        return (await this.get())[guild];
+    }
+
     // restart to load new config
     static async load() {
         const settings = await parse(await readFile(this.path, "utf8")) as Root;
@@ -33,10 +77,6 @@ export default class QuestionHandler {
         }
 
         return settings;
-    }
-
-    static async get() {
-        return (this.cache ??= await this.load());
     }
 
     /**
@@ -66,44 +106,5 @@ export default class QuestionHandler {
         }
 
         return true;
-    }
-
-    static getQuestionID(guild: string, name: string) {
-        return this.questionMap.find(q => q.guild === guild && q.name === name)!.hash;
-    }
-
-    static getChoiceID(guild: string, name: string, choice: string) {
-        return this.questionMap.find(q => q.guild === guild && q.name === name)!.choices[choice];
-    }
-
-    static getFromID(id: string) {
-        const val = this.hashMap.get(id);
-        return val === undefined ? null : [val.startsWith("Q") ? "question" : "choice", val.slice(1)] as ["question" | "choice", string];
-    }
-
-    static async getQuestion(guild: string, name: string) {
-        return (await this.get())[guild]?.questions.find(q => q.name === name) ?? null;
-    }
-
-    static async getNextQuestion(guild: string, name: string, previous: Record<string, Array<string>>): Promise<SelectQuestion | ButtonQuestion | null> {
-        const { questions } = (await this.get())[guild];
-        if (questions === undefined) {
-            return null;
-        }
-        const index = questions.findIndex(q => q.name === name);
-        const next = questions[index + 1];
-        if (next === undefined) {
-            return null;
-        }
-
-        if (await this.shouldShow(guild, next.name, previous)) {
-            return next;
-        }
-
-        return (index + 1) === questions.length ? null : this.getNextQuestion(guild, next.name, previous);
-    }
-
-    static async getServerConfig(guild: string) {
-        return (await this.get())[guild];
     }
 }
