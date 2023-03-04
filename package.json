@@ -1,11 +1,11 @@
 {
   "name": "security",
   "version": "2.0.0",
-  "buildDate": "00022023",
   "description": "Security bot for my servers.",
-  "main": "index.js",
+  "buildDate": null,
+  "main": "dist/src/index.js",
   "scripts": {
-    "build": "tsc && node --no-warnings --no-deprecation --experimental-specifier-resolution=node --loader ts-node/esm/transpile-only scripts/build-date.ts && echo Build Finished",
+    "build": "tsc && npx build-date $(pwd) && echo Build Finished",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "up:d": "sudo docker compose pull && sudo docker compose up -d",
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/DonovanDMC/Security#readme",
   "dependencies": {
-    "@uwu-codes/utils": "^1.2.2",
+    "@uwu-codes/utils": "^1.3.2",
     "chunk": "^0.0.3",
     "jsonc-parser": "^3.2.0",
     "oceanic.js": "^1.5.0",

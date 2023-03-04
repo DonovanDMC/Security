@@ -1,8 +1,7 @@
 import Config from "./config/index.js";
 import Security from "./main.js";
 import Logger from "./util/Logger.js";
-import { Time } from "@uwu-codes/utils";
-import { createServer } from "node:http";
+import { StatusServer, Time } from "@uwu-codes/utils";
 
 const initTime = process.hrtime.bigint();
 const bot = new Security(initTime);
@@ -28,9 +27,4 @@ process
         process.exit(0);
     });
 
-const statusServer = createServer((req, res) => {
-    res.writeHead(bot.ready ? 204 : 503, {
-        "Content-Type":   "text/plain",
-        "Content-Length": 0
-    }).end();
-}).listen(3621, "127.0.0.1");
+const statusServer = StatusServer(() => bot.ready);
