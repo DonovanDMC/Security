@@ -95,7 +95,7 @@ export default class Security extends Client {
         }
         writeFile(`${Config.dataDir}/commands.json`, JSON.stringify(commands), "utf8").catch(() => null);
         const regStart = Timer.getTime();
-        await this.application.bulkEditGlobalCommands(commands).catch(this.handleRegistrationError.bind(this, commands));
+        await (this.application.id === "571059650259189770" ? this.application.bulkEditGlobalCommands(commands) : this.application.bulkEditGuildCommands("329498711338123268", commands)).catch(this.handleRegistrationError.bind(this, commands));
         const regEnd = Timer.getTime();
         Logger.getLogger("CommandRegistration").info(`Registered ${commands.length} commands in ${Timer.calc(regStart, regEnd, 3, false)}`);
     }

@@ -1,6 +1,8 @@
 import QuestionHandler from "./QuestionHandler.js";
+import Welcome from "./Welcome.js";
 import type Security from "../main";
-import { MessageFlags } from "oceanic.js";
+import Config from "../config/index.js";
+import { type GuildComponentInteraction, type GuildModalSubmitInteraction, MessageFlags } from "oceanic.js";
 
 interface ActiveRegistration {
     guild: string;
@@ -58,27 +60,29 @@ export default class ActiveRegistrationHandler {
         this.active.splice(this.active.indexOf(reg), 1);
         const serverConfig = await QuestionHandler.getServerConfig(reg.guild);
         const usr = (await this.client.getUser(reg.user))!;
-        await this.client.rest.channels.createMessage(serverConfig.logsChannel, {
-            embeds: [
-                {
-                    author: {
-                        name:    usr.tag,
-                        iconURL: usr.avatarURL()
-                    },
-                    title:  "Successful Registration",
-                    color:  0x008000,
-                    fields: serverConfig.questions.map(q => ({
-                        name:   q.name,
-                        value:  reg.stringAnswers[q.name]?.join(", ") ?? "N/A",
-                        inline: true
-                    })),
-                    footer: {
-                        text: `User ID: ${reg.user}`
-                    },
-                    timestamp: new Date().toISOString()
-                }
-            ]
-        });
+        if (serverConfig.logsChannel !== null) {
+            await this.client.rest.channels.createMessage(serverConfig.logsChannel, {
+                embeds: [
+                    {
+                        author: {
+                            name:    usr.tag,
+                            iconURL: usr.avatarURL()
+                        },
+                        title:  "Successful Registration",
+                        color:  0x008000,
+                        fields: serverConfig.questions.map(q => ({
+                            name:   q.name,
+                            value:  reg.stringAnswers[q.name]?.join(", ") ?? "N/A",
+                            inline: true
+                        })),
+                        footer: {
+                            text: `User ID: ${reg.user}`
+                        },
+                        timestamp: new Date().toISOString()
+                    }
+                ]
+            });
+        }
         return Object.values(reg.roles).flat();
     }
 
@@ -90,6 +94,42 @@ export default class ActiveRegistrationHandler {
         return reg.roles;
     }
 
+    static async handleEnd(interaction: GuildComponentInteraction | GuildModalSubmitInteraction) {
+        const r = await ActiveRegistrationHandler.end(interaction.guildID, interaction.user.id);
+        if (r === null) {
+            throw new Error("Registration not found");
+        }
+        if (!Config.dryRun) {
+            for (const role of r) {
+                if (!interaction.member.roles.includes(role)) {
+                    await interaction.member.addRole(role, "Registration");
+                }
+            }
+
+            const serverConfig = await QuestionHandler.getServerConfig(interaction.guildID);
+            welcome: if (serverConfig.welcome !== null) {
+                if (typeof serverConfig.welcome === "object" && !serverConfig.welcome.requiredRoles.some(role => r.includes(role))) {
+                    break welcome;
+                }
+                await Welcome.run(interaction.guildID, interaction.member.id, "join", typeof serverConfig.welcome === "object" ? serverConfig.welcome.force : false);
+            }
+
+            if (typeof serverConfig.successfulRegistrationRole === "string" && !interaction.member.roles.includes(serverConfig.successfulRegistrationRole)) {
+                await interaction.member.addRole(serverConfig.successfulRegistrationRole, "Registration");
+            }
+        }
+
+        return interaction.editParent({
+            content:    "Your registration has been completed.",
+            flags:      MessageFlags.EPHEMERAL,
+            components: []
+        }).catch(() => interaction.createMessage({
+            content:    "Your registration has been completed.",
+            flags:      MessageFlags.EPHEMERAL,
+            components: []
+        }));
+    }
+
     static init(client: Security) {
         this.client = client;
         setInterval(this.handleTimeout.bind(this), 1000);
@@ -99,14 +139,33 @@ export default class ActiveRegistrationHandler {
         return this.active.some(reg => reg.guild === guild && reg.user === user);
     }
 
-    static saveChoices(guild: string, user: string, question: string, choices: Array<string>, stringValues: Array<string>, token: string) {
+    static saveChoices(guild: string, user: string, question: string, roles: Array<string>, stringValues: Array<string>, token: string) {
         let rg: ActiveRegistration | undefined;
         const reg = rg = this.active.find(r => r.guild === guild && r.user === user);
         if (reg === undefined || rg === undefined) {
             return;
         }
-        reg.roles[question] = choices;
+        // question -> roles
+        reg.roles[question] = roles;
+        // question -> string values
         reg.stringAnswers[question] = stringValues;
+        reg.lastAnsweredAt = new Date();
+        reg.interactionToken = token;
+        this.active.splice(this.active.indexOf(rg), 1, reg);
+    }
+
+    static saveInputs(guild: string, user: string, question: string, roles: Record<string, Array<string>>, inputMap: Record<string, string>, token: string) {
+        let rg: ActiveRegistration | undefined;
+        const reg = rg = this.active.find(r => r.guild === guild && r.user === user);
+        if (reg === undefined || rg === undefined) {
+            return;
+        }
+        // question -> roles
+        reg.roles[question] = Object.values(roles).flat();
+        // question -> string values
+        reg.stringAnswers[question] = Object.entries(inputMap).map(([k, v]) => `${k}: ${v}`);
+        // question.field -> roles
+        Object.entries(inputMap).map(([k]) => reg.roles[`${question}.${k}`] = roles[k]);
         reg.lastAnsweredAt = new Date();
         reg.interactionToken = token;
         this.active.splice(this.active.indexOf(rg), 1, reg);

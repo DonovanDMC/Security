@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["servers.jsonc"],
+      "url": "./servers.schema.json"
+    }
+  ]
+}

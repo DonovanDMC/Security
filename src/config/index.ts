@@ -16,7 +16,7 @@ class Configuration extends LocalConfiguration {
 
     /* directories */
     static get baseDir() {
-        return new URL(`../../${import.meta.url.endsWith(".js") ? "../" : ""}`, import.meta.url).pathname.slice(0, -1);
+        return new URL(`../../${import.meta.url.endsWith(".js") ? "" : ""}`, import.meta.url).pathname.slice(0, -1);
     }
 
     static get dataDir() {
@@ -58,6 +58,10 @@ class Configuration extends LocalConfiguration {
                 getAllUsers: true
             }
         } satisfies ClientOptions as ClientOptions;
+    }
+
+    static get dryRun() {
+        return !isDocker;
     }
 }
 const Config = EnvOverride("SECURITY_", Configuration);

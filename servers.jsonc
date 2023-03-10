@@ -3,6 +3,7 @@
     "logsChannel": "609503408386474074",
     "disallowDuplicateRegistration": true,
     "successfulRegistrationRole": "1059221621975560312",
+    "welcome": null,
     "blockedRoles": [
       // Registration Blocked
       "1061048188636770435"
@@ -10,72 +11,57 @@
     "questions": [
       {
         "name": "age",
-        "question": "What is your age? Lying here could result in a permanent ban.",
         "condition": null,
-        "choiceType": "select",
-        "multiselect": false,
-        "choices": [
+        "type": "input",
+        "question": "What is your age?",
+        "fields": [
           {
-            "name": "13",
-            "roles": [
-              // under 18
-              "584956950282895360",
-              // id check
-              "1058973643985649745"
-            ]
-          },
-          {
-            "name": "14",
-            "roles": [
-              // under 18
-              "584956950282895360",
-              // id check
-              "1058973643985649745"
-            ]
-          },
-          {
-            "name": "15",
-            "roles": [
-              // under 18
-              "584956950282895360",
-              // mature
-              "589763769740165121"
-            ]
-          },
-          {
-            "name": "16",
-            "roles": [
-              // under 18
-              "584956950282895360",
-              // mature
-              "589763769740165121"
-            ]
-          },
-          {
-            "name": "17",
-            "roles": [
-              // under 18
-              "584956950282895360",
-              // mature
-              "589763769740165121"
-            ]
-          },
-          {
-            "name": "18+",
-            "roles": [
-              // 18+
-              "584965037731348490",
-              // mature
-              "589763769740165121"
-            ]
-          },
-          {
-            "name": "Decline To Answer",
-            "roles": [
-              // decline to answer
-              "1058984618499514438",
-              // id check
-              "1058973643985649745"
+            "type": "short",
+            "parse": "number",
+            "name": "age",
+            "placeholder": "Your age as a number (e.g. 20)",
+            "required": true,
+            "results": [
+              {
+                "type": "gte",
+                "value": "18",
+                "roles": [
+                  // 18+
+                  "1059242490911268864"
+                ]
+              },
+              {
+                "type": "lte",
+                "value": "14",
+                "roles": [
+                  // id check
+                  "1058973643985649745"
+                ]
+              },
+              {
+                "type": "gte",
+                "value": "15",
+                "roles": [
+                  // mature
+                  "589763769740165121"
+                ]
+              },
+              {
+                "type": "lte",
+                "value": "17",
+                "roles": [
+                  // under 18
+                  "584956950282895360"
+                ]
+              },
+              {
+                "type": "gte",
+                "value": "18",
+                "roles": [
+                  // 18+
+                  "584965037731348490"
+                ]
+              }
             ]
           }
         ]
@@ -87,7 +73,7 @@
           // 18+
           "age": "584965037731348490"
         },
-        "choiceType": "button",
+        "type": "button",
         "choices": [
           {
             "name": "Yes",
@@ -110,8 +96,8 @@
         "name": "gender",
         "question": "What is your gender?",
         "condition": null,
-        "choiceType": "select",
-        "multiselect": false,
+        "type": "select",
+        "multiSelect": false,
         "choices": [
           {
             "name": "Male",
@@ -149,7 +135,7 @@
           // mature
           "age": "589763769740165121"
         },
-        "choiceType": "button",
+        "type": "button",
         "choices": [
           {
             "name": "Yes",
@@ -172,7 +158,7 @@
         "name": "dms",
         "question": "Can anyone Direct Message you?",
         "condition": null,
-        "choiceType": "button",
+        "type": "button",
         "choices": [
           {
             "name": "Yes",
@@ -198,8 +184,8 @@
         "name": "species",
         "question": "What is your species?",
         "condition": null,
-        "choiceType": "select",
-        "multiselect": 3,
+        "type": "select",
+        "multiSelect": 3,
         "choices": [
           {
             "name": "Canine",
@@ -333,47 +319,53 @@
   },
   "990091579341553674": {
     "logsChannel": "1059241444151394324",
-    "disallowDuplicateRegistration": false,
+    "disallowDuplicateRegistration": true,
     "successfulRegistrationRole": null,
+    "welcome": {
+      "force": true,
+      "requiredRoles": [
+        // 18+
+        "1059242490911268864"
+      ]
+    },
     "blockedRoles": [
       // Under 18
       "1061046625721651260",
       // Registration Blocked
-      "1061046836053422111"
+      "1061046836053422111",
+      // 18+ - hacky block of duplicate registrations
+      "1059242490911268864"
     ],
     "questions": [
       {
         "name": "age",
-        "question": "What is your age? Lying here could result in a permanent ban.",
+        "question": "What is your age?",
         "condition": null,
-        "choiceType": "select",
-        "multiselect": false,
-        "choices": [
+        "type": "input",
+        "fields": [
           {
-            "name": "13",
-            "roles": []
-          },
-          {
-            "name": "14",
-            "roles": []
-          },
-          {
-            "name": "15",
-            "roles": []
-          },
-          {
-            "name": "16",
-            "roles": []
-          },
-          {
-            "name": "17",
-            "roles": []
-          },
-          {
-            "name": "18+",
-            "roles": [
-              // registered
-              "1059242490911268864"
+            "type": "short",
+            "parse": "number",
+            "name": "age",
+            "placeholder": "Your age as a number (e.g. 20)",
+            "required": true,
+            "results": [
+              {
+                "type": "gte",
+                "value": "18",
+                "roles": [
+                  // 18+
+                  "1059242490911268864"
+                ]
+              },
+              {
+                "type": "lte",
+                "value": "17",
+                "roles": [
+                  // under 18
+                  "1061046625721651260"
+                ]
+              }
             ]
           }
         ]
@@ -385,8 +377,8 @@
           // registered
           "age": "1059242490911268864"
         },
-        "choiceType": "select",
-        "multiselect": false,
+        "type": "select",
+        "multiSelect": false,
         "choices": [
           {
             "name": "Male",
@@ -424,7 +416,7 @@
           // registered
           "age": "1059242490911268864"
         },
-        "choiceType": "button",
+        "type": "button",
         "choices": [
           {
             "name": "Yes",
@@ -450,8 +442,8 @@
           // registered
           "age": "1059242490911268864"
         },
-        "multiselect": false,
-        "choiceType": "select",
+        "multiSelect": false,
+        "type": "select",
         "choices": [
           {
             "name": "Gay",
@@ -508,8 +500,8 @@
           // registered
           "age": "1059242490911268864"
         },
-        "multiselect": false,
-        "choiceType": "select",
+        "multiSelect": false,
+        "type": "select",
         "choices": [
           {
             "name": "Submissive",
@@ -552,7 +544,7 @@
           // registered
           "age": "1059242490911268864"
         },
-        "choiceType": "button",
+        "type": "button",
         "choices": [
           {
             "name": "Yes",
@@ -578,7 +570,7 @@
           // registered
           "age": "1059242490911268864"
         },
-        "choiceType": "button",
+        "type": "button",
         "choices": [
           {
             "name": "Yes",
@@ -604,7 +596,7 @@
           // registered
           "age": "1059242490911268864"
         },
-        "choiceType": "button",
+        "type": "button",
         "choices": [
           {
             "name": "Yes",
@@ -630,7 +622,7 @@
           // registered
           "age": "1059242490911268864"
         },
-        "choiceType": "button",
+        "type": "button",
         "choices": [
           {
             "name": "Yes",

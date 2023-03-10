@@ -1,0 +1,375 @@
+{
+    "type": "object",
+    "patternProperties": {
+        "^.*$": {
+            "type": "object",
+            "properties": {
+                "blockedRoles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "disallowDuplicateRegistration": {
+                    "type": "boolean"
+                },
+                "logsChannel": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "questions": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "choices": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "minLength": 1,
+                                                    "maxLength": 100,
+                                                    "type": "string"
+                                                },
+                                                "roles": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "name",
+                                                "roles"
+                                            ]
+                                        }
+                                    },
+                                    "condition": {
+                                        "anyOf": [
+                                            {
+                                                "type": "null"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {}
+                                            }
+                                        ]
+                                    },
+                                    "multiSelect": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "number"
+                                            }
+                                        ]
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "question": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "const": "select",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "choices",
+                                    "condition",
+                                    "multiSelect",
+                                    "name",
+                                    "question",
+                                    "type"
+                                ]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "choices": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "minLength": 1,
+                                                    "maxLength": 100,
+                                                    "type": "string"
+                                                },
+                                                "roles": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "style": {
+                                                    "anyOf": [
+                                                        {
+                                                            "const": 1,
+                                                            "type": "number"
+                                                        },
+                                                        {
+                                                            "const": 2,
+                                                            "type": "number"
+                                                        },
+                                                        {
+                                                            "const": 3,
+                                                            "type": "number"
+                                                        },
+                                                        {
+                                                            "const": 4,
+                                                            "type": "number"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "name",
+                                                "roles",
+                                                "style"
+                                            ]
+                                        }
+                                    },
+                                    "condition": {
+                                        "anyOf": [
+                                            {
+                                                "type": "null"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {}
+                                            }
+                                        ]
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "question": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "const": "button",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "choices",
+                                    "condition",
+                                    "name",
+                                    "question",
+                                    "type"
+                                ]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "condition": {
+                                        "anyOf": [
+                                            {
+                                                "type": "null"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "patternProperties": {
+                                                    "^.*$": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "fields": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "parse": {
+                                                    "anyOf": [
+                                                        {
+                                                            "type": "null"
+                                                        },
+                                                        {
+                                                            "const": "number",
+                                                            "type": "string"
+                                                        }
+                                                    ]
+                                                },
+                                                "placeholder": {
+                                                    "anyOf": [
+                                                        {
+                                                            "type": "null"
+                                                        },
+                                                        {
+                                                            "type": "string"
+                                                        }
+                                                    ]
+                                                },
+                                                "required": {
+                                                    "type": "boolean"
+                                                },
+                                                "results": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "roles": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": {
+                                                                "anyOf": [
+                                                                    {
+                                                                        "const": "lt",
+                                                                        "type": "string"
+                                                                    },
+                                                                    {
+                                                                        "const": "lte",
+                                                                        "type": "string"
+                                                                    },
+                                                                    {
+                                                                        "const": "gt",
+                                                                        "type": "string"
+                                                                    },
+                                                                    {
+                                                                        "const": "gte",
+                                                                        "type": "string"
+                                                                    },
+                                                                    {
+                                                                        "const": "eq",
+                                                                        "type": "string"
+                                                                    },
+                                                                    {
+                                                                        "const": "neq",
+                                                                        "type": "string"
+                                                                    },
+                                                                    {
+                                                                        "const": "regex",
+                                                                        "type": "string"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            "value": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "roles",
+                                                            "type",
+                                                            "value"
+                                                        ]
+                                                    }
+                                                },
+                                                "type": {
+                                                    "anyOf": [
+                                                        {
+                                                            "const": "short",
+                                                            "type": "string"
+                                                        },
+                                                        {
+                                                            "const": "long",
+                                                            "type": "string"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "name",
+                                                "parse",
+                                                "placeholder",
+                                                "required",
+                                                "results",
+                                                "type"
+                                            ]
+                                        }
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "question": {
+                                        "maxLength": 45,
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "const": "input",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "condition",
+                                    "fields",
+                                    "name",
+                                    "question",
+                                    "type"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "successfulRegistrationRole": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "welcome": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "force": {
+                                    "type": "boolean"
+                                },
+                                "requiredRoles": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "force",
+                                "requiredRoles"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "blockedRoles",
+                "disallowDuplicateRegistration",
+                "logsChannel",
+                "questions",
+                "successfulRegistrationRole",
+                "welcome"
+            ]
+        }
+    },
+    "additionalProperties": false
+}

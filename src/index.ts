@@ -2,6 +2,7 @@ import Config from "./config/index.js";
 import Security from "./main.js";
 import Logger from "./util/Logger.js";
 import { StatusServer, Time } from "@uwu-codes/utils";
+import { type Server } from "node:http";
 
 const initTime = process.hrtime.bigint();
 const bot = new Security(initTime);
@@ -18,13 +19,17 @@ process
     .on("unhandledRejection", (r, p) => Logger.getLogger("Unhandled Rejection").error(r, p))
     .once("SIGINT", () => {
         bot.shutdown();
-        statusServer.close();
+        statusServer?.close();
         process.kill(process.pid, "SIGINT");
     })
     .once("SIGTERM", () => {
         bot.shutdown();
-        statusServer.close();
+        statusServer?.close();
         process.kill(process.pid, "SIGTERM");
     });
 
-const statusServer = StatusServer(() => bot.ready);
+let statusServer: Server | undefined;
+
+if (Config.isDocker) {
+    statusServer = StatusServer(() => bot.ready);
+}
