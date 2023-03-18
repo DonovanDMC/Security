@@ -1,8 +1,8 @@
 import Config from "./config/index.js";
 import Security from "./main.js";
 import Logger from "@uwu-codes/logger";
-import { StatusServer, Time } from "@uwu-codes/utils";
-import { type Server } from "node:http";
+import { Time } from "@uwu-codes/utils";
+import StatusServer, { type AnyServer } from "@uwu-codes/status-server";
 Logger._saveToRotatingFile(Config.logsDirectory);
 
 const initTime = process.hrtime.bigint();
@@ -32,7 +32,7 @@ process
         process.kill(process.pid, "SIGTERM");
     });
 
-let statusServer: Server | undefined;
+let statusServer: AnyServer | undefined;
 
 if (Config.isDocker) {
     statusServer = StatusServer(() => bot.ready);
