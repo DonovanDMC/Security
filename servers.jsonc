@@ -333,7 +333,7 @@
       "1061046625721651260",
       // Registration Blocked
       "1061046836053422111",
-      // 18+ - hacky block of duplicate registrations
+      // registered - hacky block of duplicate registrations (can't use the normal method due to under 18s)
       "1059242490911268864"
     ],
     "questions": [
@@ -354,7 +354,7 @@
                 "type": "gte",
                 "value": "18",
                 "roles": [
-                  // 18+
+                  // registered
                   "1059242490911268864"
                 ]
               },

@@ -1,6 +1,6 @@
 import ClientEvent from "../util/ClientEvent.js";
-import Logger from "../util/Logger.js";
 import ActiveRegistrationHandler from "../util/ActiveRegistrationHandler.js";
+import Logger from "@uwu-codes/logger";
 import { Time } from "@uwu-codes/utils";
 
 

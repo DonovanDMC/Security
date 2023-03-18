@@ -1,6 +1,6 @@
 import Config from "./config/index.js";
 import ClientEvent from "./util/ClientEvent.js";
-import Logger from "./util/Logger.js";
+import Logger from "@uwu-codes/logger";
 import { ApplicationCommandTypes, Client, type CreateApplicationCommandOptions } from "oceanic.js";
 import { Strings, Timer } from "@uwu-codes/utils";
 import type { ModuleImport } from "@uwu-codes/types";

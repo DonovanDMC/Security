@@ -1,8 +1,9 @@
 import Config from "./config/index.js";
 import Security from "./main.js";
-import Logger from "./util/Logger.js";
+import Logger from "@uwu-codes/logger";
 import { StatusServer, Time } from "@uwu-codes/utils";
 import { type Server } from "node:http";
+Logger._saveToRotatingFile(Config.logsDirectory);
 
 const initTime = process.hrtime.bigint();
 const bot = new Security(initTime);
@@ -16,7 +17,10 @@ await bot.rest.getBotGateway().then(function preLaunchInfo({ sessionStartLimit: 
 
 process
     .on("uncaughtException", err => Logger.getLogger("Uncaught Exception").error(err))
-    .on("unhandledRejection", (r, p) => Logger.getLogger("Unhandled Rejection").error(r, p))
+    .on("unhandledRejection", (r, p) => {
+        Logger.getLogger("Unhandled Rejection | Reason").error(r);
+        Logger.getLogger("Unhandled Rejection | Promise").error(p);
+    })
     .once("SIGINT", () => {
         bot.shutdown();
         statusServer?.close();

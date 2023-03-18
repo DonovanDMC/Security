@@ -1,9 +1,9 @@
 import ClientEvent from "../util/ClientEvent.js";
 import { buildQuestion } from "../util/buildQuestion.js";
 import QuestionHandler from "../util/QuestionHandler.js";
-import Logger from "../util/Logger.js";
 import ActiveRegistrationHandler from "../util/ActiveRegistrationHandler.js";
 import matcher from "../util/matcher.js";
+import Logger from "@uwu-codes/logger";
 import {
     type GuildCommandInteraction,
     InteractionTypes,
