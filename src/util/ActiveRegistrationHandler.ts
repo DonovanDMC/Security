@@ -108,7 +108,7 @@ export default class ActiveRegistrationHandler {
 
             const serverConfig = await QuestionHandler.getServerConfig(interaction.guildID);
             welcome: if (serverConfig.welcome !== null) {
-                if (typeof serverConfig.welcome === "object" && !serverConfig.welcome.requiredRoles.some(role => r.includes(role))) {
+                if (typeof serverConfig.welcome === "object" && (!serverConfig.welcome.join || !serverConfig.welcome.requiredRoles.some(role => r.includes(role)))) {
                     break welcome;
                 }
                 await Welcome.run(interaction.guildID, interaction.member.id, "join", typeof serverConfig.welcome === "object" ? serverConfig.welcome.force : false);

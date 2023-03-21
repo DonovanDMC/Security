@@ -351,11 +351,19 @@
                                     "items": {
                                         "type": "string"
                                     }
+                                },
+                                "join": {
+                                    "type": "boolean"
+                                },
+                                "leave": {
+                                    "type": "boolean"
                                 }
                             },
                             "required": [
                                 "force",
-                                "requiredRoles"
+                                "requiredRoles",
+                                "join",
+                                "leave"
                             ]
                         }
                     ]

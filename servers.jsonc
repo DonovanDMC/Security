@@ -326,7 +326,9 @@
       "requiredRoles": [
         // 18+
         "1059242490911268864"
-      ]
+      ],
+      "join": true,
+      "leave": true
     },
     "blockedRoles": [
       // Under 18

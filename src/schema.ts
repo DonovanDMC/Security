@@ -63,7 +63,9 @@ export type InputQuestion = Static<typeof InputQuestionSchema>;
 
 export const WelcomeConfigSchema = Type.Object({
     force:         Type.Boolean(),
-    requiredRoles: Type.Array(Type.String())
+    requiredRoles: Type.Array(Type.String()),
+    join:          Type.Boolean(),
+    leave:         Type.Boolean()
 });
 export type WelcomeConfig = Static<typeof WelcomeConfigSchema>;
 
