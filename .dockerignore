@@ -4,3 +4,4 @@ data/
 test/
 dist/
 servers.jsonc
+.npmrc

@@ -1,8 +1,11 @@
 FROM node:20-alpine
 
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install --development --force
+RUN echo -e "update-notifier=false\nloglevel=error\nnode-linker=hoisted" > ~/.npmrc
+RUN npm install --no-save pnpm
+COPY package.json pnpm-lock.yaml ./
+RUN npx pnpm install  --frozen-lockfile --ignore-scripts
 COPY . .
-RUN npm run build
+RUN npx pnpm run build
+RUN npx pnpm prune --prod
 CMD ["node", "/app/dist/index.js"]
