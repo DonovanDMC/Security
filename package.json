@@ -2,7 +2,7 @@
   "name": "security",
   "version": "2.0.0",
   "description": "Security bot for my servers.",
-  "buildDate": "02102023",
+  "buildDate": null,
   "main": "dist/src/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc && npx build-date $(pwd) && echo Build Finished",

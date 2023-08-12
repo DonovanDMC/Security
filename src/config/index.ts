@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import LocalConfiguration from "./private/private.js";
 import { EnvOverride } from "@uwu-codes/utils";
 import { ActivityTypes, type ClientOptions } from "oceanic.js";
+import { parse } from "jsonc-parser";
 import { access, readFile } from "node:fs/promises";
 
+interface IConfig {
+    token: string;
+    welcomeAuth: string;
+}
+const baseDir = new URL(`../../${import.meta.url.endsWith(".js") ? "" : ""}`, import.meta.url).pathname.slice(0, -1);
+const JSONConfig = parse(await readFile(`${baseDir}/config.jsonc`, "utf8")) as IConfig;
+
 const isDocker = await access("/.dockerenv").then(() => true, () => false) || await readFile("/proc/1/cgroup", "utf8").then(contents => contents.includes("docker"));
-class Configuration extends LocalConfiguration {
+class Configuration {
     static get isDevelopment() {
         return true;
     }
@@ -16,7 +23,7 @@ class Configuration extends LocalConfiguration {
 
     /* directories */
     static get baseDir() {
-        return new URL(`../../${import.meta.url.endsWith(".js") ? "" : ""}`, import.meta.url).pathname.slice(0, -1);
+        return baseDir;
     }
 
     static get dataDir() {
@@ -62,6 +69,13 @@ class Configuration extends LocalConfiguration {
 
     static get dryRun() {
         return !isDocker;
+    }
+    static get clientToken() {
+        return JSONConfig.token;
+    }
+
+    static get welcomeAuth() {
+        return JSONConfig.welcomeAuth;
     }
 }
 const Config = EnvOverride("SECURITY_", Configuration);

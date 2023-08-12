@@ -1,0 +1,4 @@
+{
+  "token": "Bot [TOKEN]",
+  "welcomeAuth": "Basic [base64(username:apikey)]"
+}
