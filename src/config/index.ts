@@ -47,7 +47,7 @@ class Configuration {
                 repliedUser: false
             },
             disableMemberLimitScaling: true,
-            auth:                      `Bot ${this.clientToken}`,
+            auth:                      this.clientToken,
             defaultImageFormat:        "png",
             defaultImageSize:          4096,
             gateway:                   {
